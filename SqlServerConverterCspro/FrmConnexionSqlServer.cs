@@ -97,6 +97,17 @@ namespace SqlServerConverterCspro
         {
             Btn_ConnexionServerName.Enabled = (cmb_ServerName.Text.Trim().Equals("") & rcmb_DatabaseName.Text.Trim().Equals("") & Txt_Login.Text.Trim().Equals("")? false: true);
         }
-       
+
+        private void Btn_ConnexionServerName_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Warning!");
+            }
+        }
     }
 }

@@ -164,6 +164,7 @@
             this.Btn_ConnexionServerName.TabIndex = 8;
             this.Btn_ConnexionServerName.Text = "Connexion";
             this.Btn_ConnexionServerName.UseVisualStyleBackColor = true;
+            this.Btn_ConnexionServerName.Click += new System.EventHandler(this.Btn_ConnexionServerName_Click);
             // 
             // txt_DatabaseName
             // 
