@@ -7,6 +7,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.SqlServer;
+using Microsoft.SqlServer.Management;
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Management.Common;
 
 namespace SqlServerConverterCspro
 {
@@ -19,81 +23,80 @@ namespace SqlServerConverterCspro
 
         private void FrmConnexionSqlServer_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            //Application.Exit();
         }
 
         private void FrmConnexionSqlServer_Load(object sender, EventArgs e)
         {
-
+            LoadInstanceSQLServer();
         }
 
         public void LoadInstanceSQLServer()
         {
             DataTable dt = new DataTable();
+            //String resultCol = "", resultRow="";
 
             try
             {
                 // Avoir les instances pour la connexion avec la base de donnée
                 SqlDataSourceEnumerator sqlds = SqlDataSourceEnumerator.Instance;
-                if ( dt.Rows.Count > 0 )
+                if ( dt.Rows.Count == 0 )
                 {
                     dt = sqlds.GetDataSources();
-                    //List<string> listServers  = New List<string>;
+                    List<String> listServers = new List<String>();
+                    foreach (DataRow drow in dt.Rows)
+                    {
+                            listServers.Add(drow["ServerName"].ToString()+"\\"+ drow["InstanceName"].ToString());                        
+                    }
+                    cmb_ServerName.DataSource = listServers;
                 }
+                //MessageBox.Show("resultCol: " + resultCol +"\n\n"+ "resultRow: " + resultRow );
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.Message, "Warning!");
+            }
+            finally
+            {
+                dt.Clear();
             }
 
         }
 
-    //    Public Sub LoadInstanceSQLServer()
-    //    'declare variables
-    //    Dim dt As Data.DataTable = New DataTable()
-    //    Dim dr As Data.DataRow = Nothing
+        private void rcmb_DatabaseName_DropDown(object sender, EventArgs e)
+        {
+            try
+            {
+                rcmb_DatabaseName.Items.Clear();
+                var serverCon = new ServerConnection(cmb_ServerName.Text);
+                serverCon.LoginSecure = false;
+                serverCon.Login = Txt_Login.Text;
+                serverCon.Password = Txt_Password.Text;
+                var server = new Server(serverCon);
+                foreach (Database db in server.Databases )
+                {
+                     rcmb_DatabaseName.Items.Add(db.Name);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Warning!");
+            }            
+        }
 
-    //    Try
-    //        ''get sql server instances in to DataTable object
-    //        Dim servers As Sql.SqlDataSourceEnumerator = SqlDataSourceEnumerator.Instance
+        private void rcmb_DatabaseName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (rcmb_DatabaseName.Text != "")
+            {
+                txt_DatabaseName.Text = rcmb_DatabaseName.Text;
+                EnableBtnConnexion();
+            }
+        }
 
-    //        ' Check if datatable is empty
-    //        If dt.Rows.Count = 0 Then
-    //            ' Get a datatable with info about SQL Server 2000 and 2005 instances
-    //            dt = servers.GetDataSources()
-
-    //            ' List that will be combobox’s datasource   
-    //            Dim listServers As List(Of String) = New List(Of String)
-    //            ' For each element in the datatable add a new element in the list
-
-    //            For Each rowServer As DataRow In dt.Rows
-    //                ' SQL Server instance could have instace name or only server name,
-    //                ' check this for show the name
-    //                If String.IsNullOrEmpty(rowServer("InstanceName").ToString()) Then
-    //                    If rowServer("ServerName").ToString().Equals("JFDUVERS-PC") Then
-    //                        listServers.Add(rowServer("ServerName").ToString() & "\MSSQLSERVER_08R2")
-    //                    Else
-    //                        listServers.Add(rowServer("ServerName").ToString())
-    //                    End If
-    //                Else
-    //                    listServers.Add(rowServer("ServerName") & "\" & rowServer("InstanceName"))
-    //                End If
-    //            Next
-    //            'Set servers list to combobox’s datasource
-    //            Me.cmb_server.DataSource = listServers
-    //        End If
-    //    Catch ex As System.Data.SqlClient.SqlException
-    //        MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Error!")
-
-    //    Catch ex As Exception
-    //        MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Error!")
-
-    //    Finally
-    //        'clean up ;)
-    //        dr = Nothing
-    //        dt = Nothing
-    //    End Try
-    //End Sub
-
+        private void EnableBtnConnexion()
+        {
+            Btn_ConnexionServerName.Enabled = (cmb_ServerName.Text.Trim().Equals("") & rcmb_DatabaseName.Text.Trim().Equals("") & Txt_Login.Text.Trim().Equals("")? false: true);
+        }
+       
     }
 }

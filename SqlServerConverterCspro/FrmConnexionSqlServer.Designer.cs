@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.GroupBox4 = new System.Windows.Forms.GroupBox();
-            this.cmb_server = new System.Windows.Forms.ComboBox();
+            this.cmb_ServerName = new System.Windows.Forms.ComboBox();
             this.rcmb_DatabaseName = new System.Windows.Forms.ComboBox();
             this.GrpBox_DB = new System.Windows.Forms.GroupBox();
             this.rbtn_PostGres = new System.Windows.Forms.RadioButton();
@@ -52,7 +52,7 @@
             // GroupBox4
             // 
             this.GroupBox4.BackColor = System.Drawing.Color.Transparent;
-            this.GroupBox4.Controls.Add(this.cmb_server);
+            this.GroupBox4.Controls.Add(this.cmb_ServerName);
             this.GroupBox4.Controls.Add(this.rcmb_DatabaseName);
             this.GroupBox4.Controls.Add(this.GrpBox_DB);
             this.GroupBox4.Controls.Add(this.Btn_ConnexionServerName);
@@ -73,14 +73,14 @@
             this.GroupBox4.TabStop = false;
             this.GroupBox4.Text = "Paramètres Connexion Base de donnees";
             // 
-            // cmb_server
+            // cmb_ServerName
             // 
-            this.cmb_server.FormattingEnabled = true;
-            this.cmb_server.Location = new System.Drawing.Point(132, 92);
-            this.cmb_server.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmb_server.Name = "cmb_server";
-            this.cmb_server.Size = new System.Drawing.Size(383, 28);
-            this.cmb_server.TabIndex = 4;
+            this.cmb_ServerName.FormattingEnabled = true;
+            this.cmb_ServerName.Location = new System.Drawing.Point(132, 92);
+            this.cmb_ServerName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmb_ServerName.Name = "cmb_ServerName";
+            this.cmb_ServerName.Size = new System.Drawing.Size(383, 28);
+            this.cmb_ServerName.TabIndex = 4;
             // 
             // rcmb_DatabaseName
             // 
@@ -90,6 +90,8 @@
             this.rcmb_DatabaseName.Name = "rcmb_DatabaseName";
             this.rcmb_DatabaseName.Size = new System.Drawing.Size(383, 28);
             this.rcmb_DatabaseName.TabIndex = 7;
+            this.rcmb_DatabaseName.DropDown += new System.EventHandler(this.rcmb_DatabaseName_DropDown);
+            this.rcmb_DatabaseName.SelectedIndexChanged += new System.EventHandler(this.rcmb_DatabaseName_SelectedIndexChanged);
             // 
             // GrpBox_DB
             // 
@@ -158,14 +160,14 @@
             this.Btn_ConnexionServerName.Location = new System.Drawing.Point(130, 275);
             this.Btn_ConnexionServerName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Btn_ConnexionServerName.Name = "Btn_ConnexionServerName";
-            this.Btn_ConnexionServerName.Size = new System.Drawing.Size(156, 45);
+            this.Btn_ConnexionServerName.Size = new System.Drawing.Size(268, 45);
             this.Btn_ConnexionServerName.TabIndex = 8;
             this.Btn_ConnexionServerName.Text = "Connexion";
             this.Btn_ConnexionServerName.UseVisualStyleBackColor = true;
             // 
             // txt_DatabaseName
             // 
-            this.txt_DatabaseName.Location = new System.Drawing.Point(296, 282);
+            this.txt_DatabaseName.Location = new System.Drawing.Point(489, 296);
             this.txt_DatabaseName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txt_DatabaseName.Name = "txt_DatabaseName";
             this.txt_DatabaseName.Size = new System.Drawing.Size(28, 26);
@@ -184,7 +186,7 @@
             // 
             // txt_ServerName
             // 
-            this.txt_ServerName.Location = new System.Drawing.Point(334, 282);
+            this.txt_ServerName.Location = new System.Drawing.Point(487, 260);
             this.txt_ServerName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txt_ServerName.Name = "txt_ServerName";
             this.txt_ServerName.Size = new System.Drawing.Size(28, 26);
@@ -242,7 +244,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 379);
+            this.ClientSize = new System.Drawing.Size(581, 402);
+            this.ControlBox = false;
             this.Controls.Add(this.GroupBox4);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -264,7 +267,7 @@
         #endregion
 
         internal System.Windows.Forms.GroupBox GroupBox4;
-        internal System.Windows.Forms.ComboBox cmb_server;
+        internal System.Windows.Forms.ComboBox cmb_ServerName;
         internal System.Windows.Forms.ComboBox rcmb_DatabaseName;
         internal System.Windows.Forms.GroupBox GrpBox_DB;
         internal System.Windows.Forms.RadioButton rbtn_PostGres;
