@@ -58,7 +58,7 @@
             // 
             this.quitterToolStripMenuItem.Image = global::SqlServerConverterCspro.Properties.Resources.img_erreur;
             this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
-            this.quitterToolStripMenuItem.Size = new System.Drawing.Size(151, 30);
+            this.quitterToolStripMenuItem.Size = new System.Drawing.Size(210, 30);
             this.quitterToolStripMenuItem.Text = "Quitter";
             this.quitterToolStripMenuItem.Click += new System.EventHandler(this.quitterToolStripMenuItem_Click);
             // 

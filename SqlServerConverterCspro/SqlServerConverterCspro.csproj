@@ -77,6 +77,12 @@
     <Compile Include="FrmConnexionSqlServer.Designer.cs">
       <DependentUpon>FrmConnexionSqlServer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm_ExportData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_ExportData.Designer.cs">
+      <DependentUpon>Frm_ExportData.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmConnexionSqlServer.resx">
       <DependentUpon>FrmConnexionSqlServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_ExportData.resx">
+      <DependentUpon>Frm_ExportData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
